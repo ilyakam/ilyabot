@@ -74,6 +74,30 @@ describe('API Endpoints', function() {
     });
   });
 
+  describe('api', function() {
+    var server,
+        spyOnApi;
+
+    beforeEach(function() {
+      spyOnApi = jasmine.createSpy('api');
+
+      mockery.registerMock('./api/api.js', spyOnApi);
+
+      server = require('./server.js');
+    });
+
+    afterEach(function() {
+      mockery.deregisterMock('./api/api.js');
+
+      server.close();
+    });
+
+    it('should pass the application into the API service', function() {
+      expect(spyOnApi)
+        .toHaveBeenCalledWith(jasmine.any(Function));
+    });
+  });
+
   describe('not found', function() {
     var server;
 

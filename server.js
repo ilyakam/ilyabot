@@ -1,4 +1,6 @@
-var express = require('express'),
+var api = require('./api/api.js'),
+    bodyParser = require('body-parser'),
+    express = require('express'),
     log = require('log4js').getLogger(),
     nconf = require('nconf'),
     app,
@@ -12,11 +14,15 @@ nconf
 
 app = express();
 
+app.use(bodyParser.json());
+
 app.use(function(req, res, next) {
   log.info('%s %s', req.method, req.url);
 
   next();
 });
+
+api(app);
 
 app.use(function(req, res) {
   res.sendStatus(404);
