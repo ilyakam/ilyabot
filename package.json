@@ -1,0 +1,35 @@
+{
+  "author": "Ilya Kaminsky <ilyakam@gmail.com> (http://ilyakam.com)",
+  "bugs": {
+    "url": "https://github.com/ilyakam/ilyabot/issues"
+  },
+  "dependencies": {
+    "express": "^4.14.0",
+    "log4js": "^1.1.0",
+    "nconf": "^0.8.4"
+  },
+  "description": "The bot that would ultimately replace me",
+  "devDependencies": {
+    "eslint": "^3.12.2",
+    "istanbul": "^0.4.5",
+    "jasmine": "^2.5.2",
+    "mockery": "^2.0.0",
+    "supertest": "^2.0.1"
+  },
+  "homepage": "https://github.com/ilyakam/ilyabot#readme",
+  "keywords": [
+    "bot",
+    "github"
+  ],
+  "main": "server.js",
+  "name": "ilyabot",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ilyakam/ilyabot.git"
+  },
+  "scripts": {
+    "lint": "./node_modules/eslint/bin/eslint.js .",
+    "test": "istanbul cover -x '*spec.js' ./node_modules/.bin/jasmine"
+  },
+  "version": "0.0.0"
+}
