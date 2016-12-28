@@ -1,7 +1,7 @@
 var mockery = require('mockery'),
     request = require('supertest');
 
-describe('API Endpoints', function() {
+describe('Server Runtime', function() {
   beforeEach(function() {
     mockery.enable({
       useCleanCache: true,
@@ -74,30 +74,6 @@ describe('API Endpoints', function() {
     });
   });
 
-  describe('api', function() {
-    var server,
-        spyOnApi;
-
-    beforeEach(function() {
-      spyOnApi = jasmine.createSpy('api');
-
-      mockery.registerMock('./api/api.js', spyOnApi);
-
-      server = require('./server.js');
-    });
-
-    afterEach(function() {
-      mockery.deregisterMock('./api/api.js');
-
-      server.close();
-    });
-
-    it('should pass the application into the API service', function() {
-      expect(spyOnApi)
-        .toHaveBeenCalledWith(jasmine.any(Function));
-    });
-  });
-
   describe('not found', function() {
     var server;
 
@@ -119,6 +95,43 @@ describe('API Endpoints', function() {
 
           expect(res.text)
             .toEqual('Not Found');
+
+          return done();
+        });
+    });
+  });
+
+  describe('POST /event_handler', function() {
+    var server,
+        spyOnMockHandleEvent;
+
+    beforeEach(function() {
+      spyOnMockHandleEvent = jasmine.createSpy('handleEvent')
+        .and.callFake(function(req, res) {
+          res.sendStatus(200);
+        });
+
+      mockery.registerMock('./event/event-handler.js', spyOnMockHandleEvent);
+
+      server = require('./server.js');
+    });
+
+    afterEach(function() {
+      mockery.deregisterMock('./event/event-handler.js');
+
+      server.close();
+    });
+
+    it('should handle the event', function(done) {
+      request(server)
+        .post('/event_handler')
+        .end(function(err) {
+          if (err) {
+            return done(err);
+          }
+
+          expect(spyOnMockHandleEvent)
+            .toHaveBeenCalled();
 
           return done();
         });

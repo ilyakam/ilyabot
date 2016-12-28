@@ -1,20 +1,20 @@
-var api = require('./api/api.js'),
-    bodyParser = require('body-parser'),
+var bodyParser = require('body-parser'),
     express = require('express'),
     log = require('log4js').getLogger(),
-    nconf = require('nconf'),
+    morgan = require('morgan'),
     app,
+    handleEvent,
     server;
 
-nconf
-  .argv()
-  .env()
-  .file({file: './config.json'})
-  .defaults({PORT: 3000});
+require('dotenv').config();
+
+handleEvent = require('./event/event-handler.js');
 
 app = express();
 
 app.use(bodyParser.json());
+
+app.use(morgan('dev'));
 
 app.use(function(req, res, next) {
   log.info('%s %s', req.method, req.url);
@@ -22,13 +22,13 @@ app.use(function(req, res, next) {
   next();
 });
 
-api(app);
+app.post('/event_handler', handleEvent);
 
 app.use(function(req, res) {
   res.sendStatus(404);
 });
 
-app.set('port', nconf.get('PORT'));
+app.set('port', process.env.PORT);
 
 server = app.listen(app.get('port'), function() {
   log.info('Express server listening on port %d', server.address().port);

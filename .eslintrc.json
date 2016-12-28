@@ -64,7 +64,7 @@
      */
     "accessor-pairs": 2,             // http://eslint.org/docs/rules/accessor-pairs
     "block-scoped-var": 2,           // http://eslint.org/docs/rules/block-scoped-var
-    "complexity": [2, 4],            // http://eslint.org/docs/rules/complexity
+    "complexity": [2, 8],            // http://eslint.org/docs/rules/complexity
     "consistent-return": 2,          // http://eslint.org/docs/rules/consistent-return
     "curly": 2,                      // http://eslint.org/docs/rules/curly
     "dot-location": [2, "property"], // http://eslint.org/docs/rules/dot-location
@@ -91,7 +91,7 @@
     "no-new-wrappers": 2,            // http://eslint.org/docs/rules/no-new-wrappers
     "no-octal": 2,                   // http://eslint.org/docs/rules/no-octal
     "no-octal-escape": 2,            // http://eslint.org/docs/rules/no-octal-escape
-    "no-process-env": 2,             // http://eslint.org/docs/rules/no-process-env
+    "no-process-env": 0,             // http://eslint.org/docs/rules/no-process-env
     "no-redeclare": [2, {            // http://eslint.org/docs/rules/no-redeclare
       "builtinGlobals": true
     }],
